@@ -29,54 +29,6 @@ trans_model_file_name = './models/' + args.dataset + '/' + args.trans_model_name
 print(args)
 
 
-def top1accuracy(output, test_id, target):
-	_, pred = output.max(dim=1)
-	pred = pred.view(-1)
-	target = target.view(-1)
-	# breakpoint()
-	target_id = torch.tensor(test_id[pred])
-	accuracy = 100 * target_id.eq(target).float().mean()
-
-	return accuracy
-
-
-def compute_accuracy_kai(test_att, test_visual, test_id, test_label):
-	
-	test_att = Variable(torch.from_numpy(test_att).float().cuda())	
-	test_visual = Variable(torch.from_numpy(test_visual).float().cuda())
-
-	cls_weights = forward(test_att)
-
-	cls_weights_norm = F.normalize(cls_weights, p=2, dim=cls_weights.dim()-1, eps=1e-12)                
-	test_visual_norm = F.normalize(test_visual, p=2, dim=test_visual.dim()-1, eps=1e-12)
-
-	# outpred = [0] * 2933
-	outpred = [0] * test_visual.shape[0]
-	# test_label = test_label.astype("float32")
-	test_label = torch.tensor(test_label)
-
-	score=apply_classification_weights(test_visual_norm.unsqueeze(0).cuda(), 
-		cls_weights_norm.unsqueeze(0))
-	score = score.squeeze(0)
-	
-	_, pred = score.max(dim=1)
-	pred = pred.view(-1)
-	test_label = test_label.view(-1)
-	# breakpoint()
-	outpred = test_id[pred]
-
-	# breakpoint()
-	outpred = np.array(outpred, dtype='int')
-	test_label = test_label.numpy()
-	unique_labels = np.unique(test_label)
-	acc = 0
-	for l in unique_labels:
-		idx = np.nonzero(test_label == l)[0]
-		acc += accuracy_score(test_label[idx], outpred[idx])
-	acc = acc / unique_labels.shape[0]
-	return acc
-
-
 def calc_accuracy(test_visual, test_label, cls_weights, test_id):	
 	outpred = [0] * test_visual.shape[0]	
 	score=apply_classification_weights(test_visual.unsqueeze(0).cuda(), 
@@ -343,7 +295,7 @@ def updata_reliable_test_data(filter_type='ratio', ratio=1.2, num_per_class=5):
 
 
 
-dataroot = '../data'
+dataroot = './data'
 image_embedding = 'res101' 
 class_embedding = 'original_att'
 dataset = args.dataset+'_data'

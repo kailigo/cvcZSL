@@ -35,7 +35,7 @@ python test.py --dataset AwA1 --model_file awa1.pt
 ```
 ### Transductive setting
 ```bash
-python train_transductive.py --dataset AwA1 --ways 16 --shot 1 --lr 1e-4 --opt_decay 1e-5 --step_size 200 --loss_q 5e-1 --trans_model_name trans_s1w16_lr4_opt5_ss200_q5e1_r --log_file trans_s1w16_lr4_opt5_ss200_q5e1_r
+python trans_test.py --dataset AwA1 --trans_model_name trans_awa1.pt
 ```
 
 

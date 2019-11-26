@@ -98,7 +98,7 @@ def forward(att):
 	return a2
 
 
-dataroot = '../data'
+dataroot = './data'
 image_embedding = 'res101' 
 class_embedding = 'original_att'
 dataset = args.dataset+'_data'
