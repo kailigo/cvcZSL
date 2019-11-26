@@ -10,7 +10,7 @@ Zero-shot learning (ZSL) aims to recognize instances of unseen classes solely ba
 We recommended the following dependencies.
 
 * Python 3.5 
-* [PyTorch](http://pytorch.org/) (0.4.1)
+* PyTorch (0.4.1)
 
 
 
@@ -19,17 +19,23 @@ We recommended the following dependencies.
 Download data from [here](http://www.robots.ox.ac.uk/~lz/DEM_cvpr2017/data.zip) and unzip it `unzip data.zip`.
 
 ## Training
-Run (AwA1, for example):
-
+### Inductive setting
 ```bash
-python train_episode.py --dataset AwA1 --ways 32 --shot 4 --lr 1e-5 --opt_decay 1e-4 --step_size 500 --log_file eps_lr5_opt4_ss500_w32_s4_r --model_file eps_lr5_opt4_ss500_w32_s4_rep.pt
+python train.py --dataset AwA1 --ways 16 --shots 4 --lr 1e-5 --opt_decay 1e-4 --step_size 500 --log_file eps_lr5_opt4_ss500_w16_s4 --model_file lr5_opt4_ss500_w16_s4.pt
+```
+### Transductive setting
+```bash
+python train_transductive.py --dataset AwA1 --ways 16 --shot 1 --lr 1e-4 --opt_decay 1e-5 --step_size 200 --loss_q 5e-1 --trans_model_name trans_s1w16_lr4_opt5_ss200_q5e1_r --log_file trans_s1w16_lr4_opt5_ss200_q5e1_r
 ```
 
-
 ## Evaluate trained models
-
+### Inductive setting
 ```bash
-python test.py --dataset AwA1 --model_file eps_lr5_opt4_ss500_w40_s4.pt
+python test.py --dataset AwA1 --model_file awa1.pt
+```
+### Transductive setting
+```bash
+python train_transductive.py --dataset AwA1 --ways 16 --shot 1 --lr 1e-4 --opt_decay 1e-5 --step_size 200 --loss_q 5e-1 --trans_model_name trans_s1w16_lr4_opt5_ss200_q5e1_r --log_file trans_s1w16_lr4_opt5_ss200_q5e1_r
 ```
 
 
