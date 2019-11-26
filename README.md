@@ -1,4 +1,4 @@
-# Rethinking Zero-Shot Learning: A Conditional Visual Classification Perspective (Under Construction)
+# Rethinking Zero-Shot Learning: A Conditional Visual Classification Perspective
 PyTorch code for the following paper
 
 [Kai Li](http://kailigo.github.io/), [Martin Renqiang Min](http://www.cs.toronto.edu/~cuty/), and [Yun Fu](http://www1.ece.neu.edu/~yunfu/). "Rethinking Zero-Shot Learning: A Conditional Visual Classification Perspective", ICCV, 2019. [[pdf](https://arxiv.org/pdf/1909.05995.pdf)]
